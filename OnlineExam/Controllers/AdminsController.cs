@@ -10,12 +10,17 @@ namespace OnlineExam.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminController : ControllerBase
+    public class AdminsController : ControllerBase
     {
         OnlineExamContext db;
-        public AdminController(OnlineExamContext context)
+        public AdminsController(OnlineExamContext context)
         {
             db = context;
+        }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(db.Admin);
         }
         [HttpPost("Login")]
         public IActionResult Login(Admin admin)
