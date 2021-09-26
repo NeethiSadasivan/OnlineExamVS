@@ -22,8 +22,8 @@ namespace OnlineExam.Controllers
         {
             return Ok(db.Admin);
         }
-        [HttpPost("Login")]
-        public IActionResult Login(Admin admin)
+        [HttpPost("AdminLogin")]
+        public IActionResult AdminLogin(Admin admin)
         {
             var existAdmin = db.Admin.Where(adminOb => (adminOb.Emailid == admin.Emailid) && (adminOb.Password == admin.Password)).FirstOrDefault();
             if (existAdmin != null)
