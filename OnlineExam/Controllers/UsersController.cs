@@ -52,6 +52,25 @@ namespace OnlineExam.Controllers
             return Ok(new { status = "unsuccessful" });
 
         }
+        [HttpGet("ReportCard")]
+        public IActionResult Getbyuser(string username)
+        {
+            
+            var q = (from r in db.Result
+                     where r.User.Username == username
+                     join s in db.Subjects on r.Subjectid equals s.Subjectid
+                     join u in db.Users on r.Userid equals u.Userid
+
+                     select new
+                     {
+                         u.Username,
+                         s.Subjectname,
+                         r.Level1marks,
+                         r.Level2marks,
+                         r.Level3marks
+                     }).ToList();
+            return Ok(q);
+        }
 
     }
 }

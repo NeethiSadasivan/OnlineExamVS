@@ -31,7 +31,7 @@ namespace OnlineExam.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=Ashwin;Database=OnlineExam;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=NEETHI-PC\\SQLEXPRESS;Database=OnlineExam;Trusted_Connection=True;");
             }
         }
 
@@ -40,7 +40,7 @@ namespace OnlineExam.Models
             modelBuilder.Entity<Admin>(entity =>
             {
                 entity.HasKey(e => e.Emailid)
-                    .HasName("PK__admin__8734520AC34C4FEF");
+                    .HasName("PK__admin__8734520A5D585728");
 
                 entity.ToTable("admin");
 
@@ -72,13 +72,13 @@ namespace OnlineExam.Models
                 entity.HasOne(d => d.Subject)
                     .WithMany()
                     .HasForeignKey(d => d.Subjectid)
-                    .HasConstraintName("FK__exam__subjectid__2F10007B");
+                    .HasConstraintName("FK__exam__subjectid__797309D9");
             });
 
             modelBuilder.Entity<Questions>(entity =>
             {
                 entity.HasKey(e => e.Questionid)
-                    .HasName("PK__question__62C2216A32C50D05");
+                    .HasName("PK__question__62C2216A6BF0189E");
 
                 entity.ToTable("questions");
 
@@ -121,7 +121,7 @@ namespace OnlineExam.Models
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.Questions)
                     .HasForeignKey(d => d.Subjectid)
-                    .HasConstraintName("FK__questions__subje__286302EC");
+                    .HasConstraintName("FK__questions__subje__73BA3083");
             });
 
             modelBuilder.Entity<Result>(entity =>
@@ -130,9 +130,11 @@ namespace OnlineExam.Models
 
                 entity.ToTable("result");
 
-                entity.Property(e => e.Level).HasColumnName("level");
+                entity.Property(e => e.Level1marks).HasColumnName("level1marks");
 
-                entity.Property(e => e.Marks).HasColumnName("marks");
+                entity.Property(e => e.Level2marks).HasColumnName("level2marks");
+
+                entity.Property(e => e.Level3marks).HasColumnName("level3marks");
 
                 entity.Property(e => e.Subjectid).HasColumnName("subjectid");
 
@@ -141,18 +143,18 @@ namespace OnlineExam.Models
                 entity.HasOne(d => d.Subject)
                     .WithMany()
                     .HasForeignKey(d => d.Subjectid)
-                    .HasConstraintName("FK__result__subjecti__2B3F6F97");
+                    .HasConstraintName("FK__result__subjecti__76969D2E");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.Userid)
-                    .HasConstraintName("FK__result__userid__2A4B4B5E");
+                    .HasConstraintName("FK__result__userid__75A278F5");
             });
 
             modelBuilder.Entity<Subjects>(entity =>
             {
                 entity.HasKey(e => e.Subjectid)
-                    .HasName("PK__subjects__ACE1437865526FDF");
+                    .HasName("PK__subjects__ACE143780451E309");
 
                 entity.ToTable("subjects");
 
@@ -167,7 +169,7 @@ namespace OnlineExam.Models
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.Userid)
-                    .HasName("PK__users__CBA1B257A8EB2213");
+                    .HasName("PK__users__CBA1B257E632C1E7");
 
                 entity.ToTable("users");
 
