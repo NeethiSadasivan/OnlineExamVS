@@ -12,12 +12,12 @@ namespace OnlineExam.Models
         public int Userid { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public string Pass { get; set; }
+        public string Password { get; set; }
         public string Mobile { get; set; }
         public DateTime Dob { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Qualification { get; set; }
-        public int Yearofcompletion { get; set; }
+        public string Yearofcompletion { get; set; }
     }
 }

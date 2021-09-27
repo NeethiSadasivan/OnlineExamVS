@@ -31,7 +31,7 @@ namespace OnlineExam.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=NEETHI-PC\\SQLEXPRESS;Database=OnlineExam;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=Ashwin;Database=OnlineExam;Trusted_Connection=True;");
             }
         }
 
@@ -40,7 +40,7 @@ namespace OnlineExam.Models
             modelBuilder.Entity<Admin>(entity =>
             {
                 entity.HasKey(e => e.Emailid)
-                    .HasName("PK__admin__8734520A5D585728");
+                    .HasName("PK__admin__8734520AC34C4FEF");
 
                 entity.ToTable("admin");
 
@@ -72,13 +72,13 @@ namespace OnlineExam.Models
                 entity.HasOne(d => d.Subject)
                     .WithMany()
                     .HasForeignKey(d => d.Subjectid)
-                    .HasConstraintName("FK__exam__subjectid__6754599E");
+                    .HasConstraintName("FK__exam__subjectid__2F10007B");
             });
 
             modelBuilder.Entity<Questions>(entity =>
             {
                 entity.HasKey(e => e.Questionid)
-                    .HasName("PK__question__62C2216A198041D6");
+                    .HasName("PK__question__62C2216A32C50D05");
 
                 entity.ToTable("questions");
 
@@ -121,7 +121,7 @@ namespace OnlineExam.Models
                 entity.HasOne(d => d.Subject)
                     .WithMany(p => p.Questions)
                     .HasForeignKey(d => d.Subjectid)
-                    .HasConstraintName("FK__questions__subje__628FA481");
+                    .HasConstraintName("FK__questions__subje__286302EC");
             });
 
             modelBuilder.Entity<Result>(entity =>
@@ -141,18 +141,18 @@ namespace OnlineExam.Models
                 entity.HasOne(d => d.Subject)
                     .WithMany()
                     .HasForeignKey(d => d.Subjectid)
-                    .HasConstraintName("FK__result__subjecti__656C112C");
+                    .HasConstraintName("FK__result__subjecti__2B3F6F97");
 
                 entity.HasOne(d => d.User)
                     .WithMany()
                     .HasForeignKey(d => d.Userid)
-                    .HasConstraintName("FK__result__userid__6477ECF3");
+                    .HasConstraintName("FK__result__userid__2A4B4B5E");
             });
 
             modelBuilder.Entity<Subjects>(entity =>
             {
                 entity.HasKey(e => e.Subjectid)
-                    .HasName("PK__subjects__ACE14378EC89DF09");
+                    .HasName("PK__subjects__ACE1437865526FDF");
 
                 entity.ToTable("subjects");
 
@@ -167,7 +167,7 @@ namespace OnlineExam.Models
             modelBuilder.Entity<Users>(entity =>
             {
                 entity.HasKey(e => e.Userid)
-                    .HasName("PK__users__CBA1B25719623318");
+                    .HasName("PK__users__CBA1B257A8EB2213");
 
                 entity.ToTable("users");
 
@@ -195,9 +195,9 @@ namespace OnlineExam.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Pass)
+                entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasColumnName("pass")
+                    .HasColumnName("password")
                     .HasMaxLength(20)
                     .IsUnicode(false);
 
@@ -219,7 +219,11 @@ namespace OnlineExam.Models
                     .HasMaxLength(30)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Yearofcompletion).HasColumnName("yearofcompletion");
+                entity.Property(e => e.Yearofcompletion)
+                    .IsRequired()
+                    .HasColumnName("yearofcompletion")
+                    .HasMaxLength(4)
+                    .IsUnicode(false);
             });
 
             OnModelCreatingPartial(modelBuilder);
