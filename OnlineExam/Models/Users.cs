@@ -19,5 +19,6 @@ namespace OnlineExam.Models
         public string State { get; set; }
         public string Qualification { get; set; }
         public string Yearofcompletion { get; set; }
+        public string Otp { get; set; }
     }
 }
