@@ -16,7 +16,7 @@ namespace OnlineExam.Models
         public string Option3 { get; set; }
         public string Option4 { get; set; }
         public int? Level { get; set; }
-        public string Correctanswer { get; set; }
+        public int? Correctanswer { get; set; }
         public int? Subjectid { get; set; }
 
         public virtual Subjects Subject { get; set; }

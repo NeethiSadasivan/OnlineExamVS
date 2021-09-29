@@ -84,10 +84,7 @@ namespace OnlineExam.Models
 
                 entity.Property(e => e.Questionid).HasColumnName("questionid");
 
-                entity.Property(e => e.Correctanswer)
-                    .HasColumnName("correctanswer")
-                    .HasMaxLength(100)
-                    .IsUnicode(false);
+                entity.Property(e => e.Correctanswer).HasColumnName("correctanswer");
 
                 entity.Property(e => e.Level).HasColumnName("level");
 
@@ -130,11 +127,17 @@ namespace OnlineExam.Models
 
                 entity.ToTable("result");
 
-                entity.Property(e => e.Level1marks).HasColumnName("level1marks");
+                entity.Property(e => e.Level1marks)
+                    .HasColumnName("level1marks")
+                    .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Level2marks).HasColumnName("level2marks");
+                entity.Property(e => e.Level2marks)
+                    .HasColumnName("level2marks")
+                    .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Level3marks).HasColumnName("level3marks");
+                entity.Property(e => e.Level3marks)
+                    .HasColumnName("level3marks")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Subjectid).HasColumnName("subjectid");
 

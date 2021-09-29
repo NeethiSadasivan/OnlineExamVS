@@ -53,11 +53,11 @@ namespace OnlineExam.Controllers
 
         }
         [HttpGet("ReportCard")]
-        public IActionResult Getbyuser(string username)
+        public IActionResult Getbyuser(string emailid)
         {
             
             var q = (from r in db.Result
-                     where r.User.Username == username
+                     where r.User.Email == emailid
                      join s in db.Subjects on r.Subjectid equals s.Subjectid
                      join u in db.Users on r.Userid equals u.Userid
 
