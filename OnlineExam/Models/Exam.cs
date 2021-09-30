@@ -10,9 +10,9 @@ namespace OnlineExam.Models
     public partial class Exam
     {
         public int? Subjectid { get; set; }
-        public int? Level { get; set; }
-        public int? Minmarks { get; set; }
-        public int? Duration { get; set; }
+        public int? Level1pass { get; set; }
+        public int? Level2pass { get; set; }
+        public int? Level3pass { get; set; }
 
         public virtual Subjects Subject { get; set; }
     }
