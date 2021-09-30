@@ -151,5 +151,46 @@ namespace OnlineExam.Controllers
             return BadRequest();
         }
 
+        [HttpPut("UpdateResults")]
+        public IActionResult Addresult(Result result,string emailid,string subjectname)
+        {
+            var userid = (from u in db.Users
+                          where u.Email == emailid
+                          select u.Userid).FirstOrDefault();
+            var subjectid = (from s in db.Subjects
+                          where s.Subjectname == subjectname
+                          select s.Subjectid).FirstOrDefault();
+            Result _results = db.Result.Where(x => x.Userid == userid).FirstOrDefault();
+            if(_results == null)
+            {
+                _results.Userid = userid;
+                _results.Subjectid = subjectid;
+                _results.Level1marks = result.Level1marks;
+                _results.Level2marks = 0;
+                _results.Level3marks = 0;
+                db.Result.Add(_results);
+                db.SaveChanges();
+                return Ok(db.Result);
+            }
+            else
+            {
+                if(_results.Level2marks==0)
+                {
+                    _results.Level2marks = result.Level2marks;
+                    db.Result.Update(_results);
+                    db.SaveChanges();
+                    return Ok(db.Result);
+                }
+                else
+                {
+                    _results.Level3marks = result.Level3marks;
+                    db.Result.Update(_results);
+                    db.SaveChanges();
+                    return Ok(db.Result);
+                }
+            }
+            
+        }
+
     }
 }
