@@ -9,6 +9,11 @@ namespace OnlineExam.Models
 {
     public partial class Users
     {
+        public Users()
+        {
+            Result = new HashSet<Result>();
+        }
+
         public int Userid { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
@@ -20,5 +25,7 @@ namespace OnlineExam.Models
         public string Qualification { get; set; }
         public string Yearofcompletion { get; set; }
         public string Otp { get; set; }
+
+        public virtual ICollection<Result> Result { get; set; }
     }
 }

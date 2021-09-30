@@ -11,12 +11,16 @@ namespace OnlineExam.Models
     {
         public Subjects()
         {
+            Exam = new HashSet<Exam>();
             Questions = new HashSet<Questions>();
+            Result = new HashSet<Result>();
         }
 
         public int Subjectid { get; set; }
         public string Subjectname { get; set; }
 
+        public virtual ICollection<Exam> Exam { get; set; }
         public virtual ICollection<Questions> Questions { get; set; }
+        public virtual ICollection<Result> Result { get; set; }
     }
 }
