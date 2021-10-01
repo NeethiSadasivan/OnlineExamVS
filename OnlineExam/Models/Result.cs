@@ -14,6 +14,7 @@ namespace OnlineExam.Models
         public int? Level1marks { get; set; }
         public int? Level2marks { get; set; }
         public int? Level3marks { get; set; }
+        public int Resultid { get; set; }
 
         public virtual Subjects Subject { get; set; }
         public virtual Users User { get; set; }

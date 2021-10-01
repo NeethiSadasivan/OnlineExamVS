@@ -57,26 +57,20 @@ namespace OnlineExam.Models
 
             modelBuilder.Entity<Exam>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("exam");
 
-                entity.Property(e => e.Level1pass)
-                    .HasColumnName("level1pass")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.Examid).HasColumnName("examid");
 
-                entity.Property(e => e.Level2pass)
-                    .HasColumnName("level2pass")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.Level1pass).HasColumnName("level1pass");
 
-                entity.Property(e => e.Level3pass)
-                    .HasColumnName("level3pass")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.Level2pass).HasColumnName("level2pass");
+
+                entity.Property(e => e.Level3pass).HasColumnName("level3pass");
 
                 entity.Property(e => e.Subjectid).HasColumnName("subjectid");
 
                 entity.HasOne(d => d.Subject)
-                    .WithMany()
+                    .WithMany(p => p.Exam)
                     .HasForeignKey(d => d.Subjectid)
                     .HasConstraintName("FK__exam__subjectid__2F10007B");
             });
@@ -129,33 +123,27 @@ namespace OnlineExam.Models
 
             modelBuilder.Entity<Result>(entity =>
             {
-                entity.HasNoKey();
-
                 entity.ToTable("result");
 
-                entity.Property(e => e.Level1marks)
-                    .HasColumnName("level1marks")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.Resultid).HasColumnName("resultid");
 
-                entity.Property(e => e.Level2marks)
-                    .HasColumnName("level2marks")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.Level1marks).HasColumnName("level1marks");
 
-                entity.Property(e => e.Level3marks)
-                    .HasColumnName("level3marks")
-                    .HasDefaultValueSql("((0))");
+                entity.Property(e => e.Level2marks).HasColumnName("level2marks");
+
+                entity.Property(e => e.Level3marks).HasColumnName("level3marks");
 
                 entity.Property(e => e.Subjectid).HasColumnName("subjectid");
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
 
                 entity.HasOne(d => d.Subject)
-                    .WithMany()
+                    .WithMany(p => p.Result)
                     .HasForeignKey(d => d.Subjectid)
                     .HasConstraintName("FK__result__subjecti__2B3F6F97");
 
                 entity.HasOne(d => d.User)
-                    .WithMany()
+                    .WithMany(p => p.Result)
                     .HasForeignKey(d => d.Userid)
                     .HasConstraintName("FK__result__userid__2A4B4B5E");
             });

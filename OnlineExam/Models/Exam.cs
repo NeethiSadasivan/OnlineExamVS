@@ -13,6 +13,7 @@ namespace OnlineExam.Models
         public int? Level1pass { get; set; }
         public int? Level2pass { get; set; }
         public int? Level3pass { get; set; }
+        public int Examid { get; set; }
 
         public virtual Subjects Subject { get; set; }
     }

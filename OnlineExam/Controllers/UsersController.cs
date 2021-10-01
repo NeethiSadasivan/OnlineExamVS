@@ -99,25 +99,26 @@ namespace OnlineExam.Controllers
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
             smtpClient.Credentials = new System.Net.NetworkCredential()
             {
-                UserName = "",
-                Password = ""
+                UserName = "examo87@gmail.com",
+                Password = "Raman@5050"
             };
             smtpClient.EnableSsl = true;
             smtpClient.Send(mail);
         }
 
         [HttpPost("EmailExists")]
-        public IActionResult EmailExists(Users users)
+        public IActionResult EmailExists(string emailid)
         {
-            Users _users = db.Users.Where(x => x.Email == users.Email).FirstOrDefault();
+            var existuser = db.Users.Where(userOb => (userOb.Email == emailid)).FirstOrDefault();
             Dictionary<string, bool> status = new Dictionary<string, bool>();
-            if (_users != null)
+            if (existuser.Email == emailid)
             {
                 status.Add("EmailExists", true);
                 string OTP = Generate_otp();
-                _users.Otp = OTP;
+                existuser.Otp = OTP;
                 db.SaveChanges();
-                SendMail("", _users.Email, "OTP for resetting the password -Online", "OTP for resetting the password is" + OTP);
+                string body = "OTP for resetting the password is: " + OTP;
+                SendMail("examo87@gmail.com", existuser.Email, "OTP for resetting the password -Online", body);
                 return Ok(status);
             }
 
@@ -129,15 +130,17 @@ namespace OnlineExam.Controllers
         }
 
         [HttpPost("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword(Users users)
+        public IActionResult ForgotPassword(Users users)
         {
             Users _users = db.Users.Where(x => x.Email == users.Email).FirstOrDefault();
             Dictionary<string, bool> status = new Dictionary<string, bool>();
-            if (_users != null)
+            if (_users.Email == users.Email)
             {
                 if (_users.Otp == users.Otp)
                 {
                     _users.Otp = "";
+                    _users.Password = users.Password;
+                    db.Users.Update(_users);
                     db.SaveChanges();
                     status.Add("IsOTPValid", true);
                 }
@@ -148,10 +151,14 @@ namespace OnlineExam.Controllers
 
                 return Ok(status);
             }
-            return BadRequest();
+            else
+            {
+                return BadRequest();
+            }
+            
         }
 
-        [HttpPut("UpdateResults")]
+        [HttpPost("UpdateResults")]
         public IActionResult Addresult(Result result,string emailid,string subjectname)
         {
             var userid = (from u in db.Users
@@ -163,7 +170,9 @@ namespace OnlineExam.Controllers
             Result _results = db.Result.Where(x => x.Userid == userid).FirstOrDefault();
             if(_results == null)
             {
+                _results = new Result();
                 _results.Userid = userid;
+
                 _results.Subjectid = subjectid;
                 _results.Level1marks = result.Level1marks;
                 _results.Level2marks = 0;
