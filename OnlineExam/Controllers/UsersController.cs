@@ -163,7 +163,7 @@ namespace OnlineExam.Controllers
             Result _results = db.Result.Where(x => x.Userid == userid).FirstOrDefault();
             if(_results == null)
             {
-                _results = new Result();
+                _results= new Result();
                 _results.Userid = userid;
                 _results.Subjectid = subjectid;
                 _results.Level1marks = result.Level1marks;

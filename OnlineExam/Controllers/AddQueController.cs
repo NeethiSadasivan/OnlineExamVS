@@ -17,8 +17,14 @@ namespace OnlineExam.Controllers
         {
             db = context;
         }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(db.Questions);
+        }
 
-        [HttpPost]
+
+        [HttpPost("add")]
         public IActionResult AddQuestion(Questions questions)
         {
             db.Questions.Add(questions);
