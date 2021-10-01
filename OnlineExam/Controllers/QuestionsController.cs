@@ -50,7 +50,8 @@ namespace OnlineExam.Controllers
                            q.Option1,
                            q.Option2,
                            q.Option3,
-                           q.Option4
+                           q.Option4,
+                           q.Correctanswer
                        }).ToList();
             return Ok(qns);
         }
@@ -68,7 +69,8 @@ namespace OnlineExam.Controllers
                            q.Option1,
                            q.Option2,
                            q.Option3,
-                           q.Option4
+                           q.Option4,
+                           q.Correctanswer
                        }).ToList();
             return Ok(qns);
         }

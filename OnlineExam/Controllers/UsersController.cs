@@ -72,6 +72,29 @@ namespace OnlineExam.Controllers
                      }).ToList();
             return Ok(q);
         }
+        [HttpGet("UpdatePassword")]
+        public IActionResult Getbyuseremail(string emailid)
+        {
+
+            var q = (from u in db.Users
+                     where u.Email == emailid
+                     
+
+                     select new
+                     {
+                         u.Username,
+                         u.Email,
+                         u.Password,
+                         u.Mobile,
+                         u.Dob,
+                         u.City,
+                         u.State,
+                         u.Qualification,
+                         u.Yearofcompletion,
+                         u.Otp
+                     }).ToList();
+            return Ok(q);
+        }
 
         protected string Generate_otp()
         {
@@ -130,11 +153,11 @@ namespace OnlineExam.Controllers
         }
 
         [HttpPost("ForgotPassword")]
-        public IActionResult ForgotPassword(Users users)
+        public async Task <IActionResult> ForgotPassword(Users users)
         {
             Users _users = db.Users.Where(x => x.Email == users.Email).FirstOrDefault();
             Dictionary<string, bool> status = new Dictionary<string, bool>();
-            if (_users.Email == users.Email)
+            if (_users.Email != null)
             {
                 if (_users.Otp == users.Otp)
                 {
@@ -154,7 +177,11 @@ namespace OnlineExam.Controllers
             else
             {
                 return BadRequest();
+
             }
+           
+                
+            
             
         }
 
@@ -179,26 +206,38 @@ namespace OnlineExam.Controllers
                 _results.Level3marks = 0;
                 db.Result.Add(_results);
                 db.SaveChanges();
-                return Ok(db.Result);
+                return Ok(_results.Level1marks);
             }
             else
             {
-                if(_results.Level2marks==0)
+
+               
+                if (_results.Level2marks==0)
                 {
                     _results.Level2marks = score;
                     db.Result.Update(_results);
                     db.SaveChanges();
-                    return Ok(db.Result);
+                    return Ok(_results.Level2marks);
                 }
                 else
                 {
                     _results.Level3marks = score;
                     db.Result.Update(_results);
                     db.SaveChanges();
-                    return Ok(db.Result);
+                    return Ok(_results.Level3marks);
                 }
             }
             
+        }
+
+        [HttpGet("Exam")]
+        public IActionResult GetExam(string subjectname)
+        {
+            var subjectid = (from s in db.Subjects
+                             where s.Subjectname == subjectname
+                             select s.Subjectid).FirstOrDefault();
+            Exam exam = db.Exam.Where(x => x.Subjectid == subjectid).FirstOrDefault();
+            return Ok(exam);
         }
 
     }
