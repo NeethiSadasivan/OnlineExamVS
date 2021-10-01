@@ -152,7 +152,7 @@ namespace OnlineExam.Controllers
         }
 
         [HttpPost("UpdateResults")]
-        public IActionResult Addresult(Result result,string emailid,string subjectname)
+        public IActionResult Addresult(int score,string emailid,string subjectname)
         {
             var userid = (from u in db.Users
                           where u.Email == emailid
@@ -163,10 +163,10 @@ namespace OnlineExam.Controllers
             Result _results = db.Result.Where(x => x.Userid == userid).FirstOrDefault();
             if(_results == null)
             {
-                _results= new Result();
+                _results = new Result();
                 _results.Userid = userid;
                 _results.Subjectid = subjectid;
-                _results.Level1marks = result.Level1marks;
+                _results.Level1marks = score;
                 _results.Level2marks = 0;
                 _results.Level3marks = 0;
                 db.Result.Add(_results);
@@ -177,14 +177,14 @@ namespace OnlineExam.Controllers
             {
                 if(_results.Level2marks==0)
                 {
-                    _results.Level2marks = result.Level2marks;
+                    _results.Level2marks = score;
                     db.Result.Update(_results);
                     db.SaveChanges();
                     return Ok(db.Result);
                 }
                 else
                 {
-                    _results.Level3marks = result.Level3marks;
+                    _results.Level3marks = score;
                     db.Result.Update(_results);
                     db.SaveChanges();
                     return Ok(db.Result);
