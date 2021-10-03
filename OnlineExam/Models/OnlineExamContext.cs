@@ -31,7 +31,7 @@ namespace OnlineExam.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=Ashwin;Database=OnlineExam;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=NEETHI-PC\\SQLEXPRESS;Database=OnlineExam;Trusted_Connection=True;");
             }
         }
 
@@ -127,11 +127,17 @@ namespace OnlineExam.Models
 
                 entity.Property(e => e.Resultid).HasColumnName("resultid");
 
-                entity.Property(e => e.Level1marks).HasColumnName("level1marks");
+                entity.Property(e => e.Level1marks)
+                    .HasColumnName("level1marks")
+                    .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Level2marks).HasColumnName("level2marks");
+                entity.Property(e => e.Level2marks)
+                    .HasColumnName("level2marks")
+                    .HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.Level3marks).HasColumnName("level3marks");
+                entity.Property(e => e.Level3marks)
+                    .HasColumnName("level3marks")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.Subjectid).HasColumnName("subjectid");
 
