@@ -72,29 +72,7 @@ namespace OnlineExam.Controllers
                      }).ToList();
             return Ok(q);
         }
-        [HttpGet("UpdatePassword")]
-        public IActionResult Getbyuseremail(string emailid)
-        {
-
-            var q = (from u in db.Users
-                     where u.Email == emailid
-                     
-
-                     select new
-                     {
-                         u.Username,
-                         u.Email,
-                         u.Password,
-                         u.Mobile,
-                         u.Dob,
-                         u.City,
-                         u.State,
-                         u.Qualification,
-                         u.Yearofcompletion,
-                         u.Otp
-                     }).ToList();
-            return Ok(q);
-        }
+       
 
         protected string Generate_otp()
         {
@@ -178,10 +156,7 @@ namespace OnlineExam.Controllers
             {
                 return BadRequest();
 
-            }
-           
-                
-            
+            }        
             
         }
 
@@ -210,9 +185,16 @@ namespace OnlineExam.Controllers
             }
             else
             {
+                if(_results.Level1marks < 80)
+                {
+                    _results.Level1marks = score;
+                    db.Result.Update(_results);
+                    db.SaveChanges();
+                    return Ok(_results.Level1marks);
 
+                }
                
-                if (_results.Level2marks==0)
+                else if (_results.Level2marks==0)
                 {
                     _results.Level2marks = score;
                     db.Result.Update(_results);
