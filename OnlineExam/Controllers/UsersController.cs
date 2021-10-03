@@ -169,7 +169,7 @@ namespace OnlineExam.Controllers
             var subjectid = (from s in db.Subjects
                           where s.Subjectname == subjectname
                           select s.Subjectid).FirstOrDefault();
-            Result _results = db.Result.Where(x => x.Userid == userid).FirstOrDefault();
+            Result _results = db.Result.Where(x => x.Userid == userid && x.Subjectid == subjectid).FirstOrDefault();
             if(_results == null)
             {
                 _results = new Result();
@@ -185,16 +185,12 @@ namespace OnlineExam.Controllers
             }
             else
             {
-                if(_results.Level1marks < 80)
-                {
-                    _results.Level1marks = score;
-                    db.Result.Update(_results);
-                    db.SaveChanges();
-                    return Ok(_results.Level1marks);
 
-                }
-               
-                else if (_results.Level2marks==0)
+
+                _results.Userid = userid;
+                _results.Subjectid = subjectid;
+                _results.Level1marks = score;
+                if (_results.Level2marks==0)
                 {
                     _results.Level2marks = score;
                     db.Result.Update(_results);
