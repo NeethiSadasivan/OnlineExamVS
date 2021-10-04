@@ -53,6 +53,7 @@ namespace OnlineExam.Controllers
             return Ok(new { status = "unsuccessful" });
 
         }
+
         [HttpGet("ReportCard")]
         public IActionResult Getbyuser(string emailid)
         {
@@ -187,9 +188,13 @@ namespace OnlineExam.Controllers
             {
 
 
-                _results.Userid = userid;
-                _results.Subjectid = subjectid;
-                _results.Level1marks = score;
+              //if(_results.Level1marks>=80)
+              //  {
+              //      _results.Userid = userid;
+              //      _results.Subjectid = subjectid;
+              //      _results.Level1marks = score;
+              //  }
+
                 if (_results.Level2marks==0)
                 {
                     _results.Level2marks = score;
